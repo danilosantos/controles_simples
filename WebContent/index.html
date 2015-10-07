@@ -1,0 +1,189 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+		
+
+		<script src="resources/sap-ui-core.js"
+				id="sap-ui-bootstrap"
+				data-sap-ui-libs="sap.ui.commons"
+				data-sap-ui-theme="sap_bluecrystal">
+		</script>
+		<!-- add sap.ui.table,sap.ui.ux3 and/or other libraries to 'data-sap-ui-libs' if required -->
+
+		<script>
+			// Controles simples
+			// TextView 
+			var text_view = new sap.ui.commons.TextView();
+				text_view.setText("teste de objeto simples textView");
+				text_view.setSemanticColor(sap.ui.commons.TextViewColor.Positive);
+				text_view.setDesign(sap.ui.commons.TextViewDesign.H2);
+				// Joga no objeto na tela
+				text_view.placeAt("divTextView");
+			
+			// TextViewFormatada	
+			var some_html_text =
+					"<ul>" +
+					"<li>HTML</li>" +
+					"<li>CSS</li>" +
+					"<li>Javascript</li>" +
+					"<li>SAP</li>" +
+					"</ul>";
+			var formatted_text_view = new sap.ui.commons.FormattedTextView();
+				formatted_text_view.setHtmlText(some_html_text);
+				// Joga no objeto da tela
+				formatted_text_view.placeAt("divFormattedTextView");
+
+			var label = new sap.ui.commons.Label({
+					visible : true,
+					text : "Country",
+					required : true,
+					requiredAtBegin : true,
+					labelFor : text_view
+			});
+			// Joga no objeto na tela
+			label.placeAt("divLabel");
+					
+			var flag = "<svg>" +
+						"<rect width='200' height='100' fill='#008000' />" +
+						"<polygon points='100,10 190,50 100,90 10,50' fill='#FFFF00'/>" +
+						"<circle cx='100' cy='50' r='30' fill='#0000FF' />" +
+						"<line x1='70' y1='45' x2='130' y2='55' stroke='white' stroke-width='5' />" +
+						"</svg>";
+			var html = new sap.ui.core.HTML({
+					content : flag
+			});
+			// Joga no objeto na tela
+			html.placeAt("divHtml");
+				
+			var handler = {
+					onButtonPressed: function(os, browser){
+									alert("You are using a " + browser +" installed on a " + os + " system");
+					}
+			};
+
+			var button_html = new sap.ui.commons.Button({
+				text: "Brownser que estou usando.",
+				icon: "sap-icon://sys-monitor",
+				press: [	function() {
+								this.onButtonPressed(sap.ui.Device.os.name,sap.ui.Device.browser.name);
+							}, 
+							handler
+						]
+				
+			}).placeAt("divButton");
+			
+			var toggle_button = new sap.ui.commons.ToggleButton({
+				text : "Off",
+				lite : false,
+				style : sap.ui.commons.ButtonStyle.Reject,
+				pressed : false,
+				press :
+					//[
+						function(oEvent) {
+							var control = oEvent.getSource();
+							if (this.getPressed() === false) {
+								this.setStyle(sap.ui.commons.ButtonStyle.Accept);
+								this.setText("On");
+							} else {
+								this.setStyle(sap.ui.commons.ButtonStyle.Reject);
+								this.setText("Off");
+							}
+						}//,
+						//toggle_button
+					//]
+			});
+			toggle_button.placeAt("divToggleButton");
+			
+			var link = new sap.ui.commons.Link({
+				text : "Find out more",
+				href : "//hanabrasil.com.br",
+				target : "_blank"
+			});
+			link.placeAt("divLink");
+				
+			var image = new sap.ui.commons.Image({
+				src : "http://openui5.org/images/OpenUI5_new_big_side.png"
+			});
+			image.placeAt("divImage");
+			
+			var image_ui5_logos =
+				new sap.ui.commons.Image({
+				// image size: 217x131
+				src : "http://abap101.com/wp-content/uploads/2015/02/sapui5-openui5.png",
+			});
+			
+			var image_map = new sap.ui.commons.ImageMap({
+				name : "map1", // string
+				areas :
+				[
+					new sap.ui.commons.Area({
+						shape : "rect",
+						coords : "0,76,217,131" ,
+						href : "https://sapui5.hana.ondemand.com/sdk/",
+						alt : "SAPUI5",
+					}),
+					new sap.ui.commons.Area({
+						shape : "rect",
+						coords : "0,0,217,75" ,
+						href : "https://openui5.hana.ondemand.com/",
+						alt : "OpenUI5",
+					})
+				]
+			});
+			
+			image_ui5_logos.setUseMap("map1");
+			image_ui5_logos.placeAt("divImageMap");
+			image_map.placeAt("divImageMap");
+			
+		</script>
+
+	</head>
+	<body class="sapUiBody" role="application">
+		<div>
+			<span>TextView</span>
+			<div id="divTextView"></div>
+		</div>
+		<br><br>
+		<div>
+			<span>FormattedTextView</span>
+			<div id="divFormattedTextView"></div>
+		</div>
+		<br><br>
+		<div>
+			<span>Label</span>
+			<div id="divLabel"></div>
+		</div>
+		<br><br>
+		<div>
+			<span>HTML</span>
+			<div id="divHtml"></div>
+		</div>
+		<br><br>
+		<div>
+			<span>Button</span>
+			<div id="divButton"></div>
+		</div>
+		<br><br>
+		<div>
+			<span>ToggleButton</span>
+			<div id="divToggleButton"></div>
+		</div>
+		<br><br>
+		<div>
+			<span>Link</span>
+			<div id="divLink"></div>
+		</div>
+		<br><br>
+		<div>
+			<span>Image</span>
+			<div id="divImage"></div>
+		</div>
+		<br><br>
+		<div>
+			<span>ImageMap</span>
+			<div id="divImageMap"></div>
+		</div>
+	</body>
+</html>
